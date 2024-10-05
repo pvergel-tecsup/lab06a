@@ -1,4 +1,6 @@
 <?php
+require_once('./model/Movie.php');
+
 class MovieDB
 {
     public function listar($cnx)
@@ -9,8 +11,14 @@ class MovieDB
                   ON g.genre_id = m.genre_id";
         $stmt = $cnx->prepare($sql);
         $stmt->execute();
-        $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $resultado;
+        $vector = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $peliculas = [];
+
+        foreach ($vector as $item) {
+            $obj = new Movie($item['id'], $item['title'], 0, 0, $item['release_year'], 0, 0, $item['genre_name']);
+            $peliculas[] = $obj;
+        }
+        return $peliculas;
     }
 }
 ?>
