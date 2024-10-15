@@ -59,6 +59,37 @@ class MovieDB
         }
     }
 
+    public function detalle($cnx, $id)
+    {
+
+        try {
+            $sql = "SELECT 
+                           m.id, m.title, m.rating, 
+                           m.awards, m.release_year, m.length, 
+                           g.genre_id, g.name as genre_name 
+                    FROM movies m 
+                    INNER JOIN genres g 
+                      ON g.genre_id = m.genre_id
+                    WHERE m.id = :movieId";
+            $stmt = $cnx->prepare($sql);
+            $stmt->bindValue(':movieId', $id, PDO::PARAM_INT);
+            $stmt->execute();
+            $vector = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $peliculas = [];
+
+            foreach ($vector as $item) {
+                $obj = new Movie($item['id'], $item['title'], $item['rating'], 
+                                 $item['awards'], $item['release_year'], $item['length'], 
+                                 $item['genre_id'], $item['genre_name']);
+                $peliculas[] = $obj;
+            }
+            return $peliculas[0];
+        } catch (PDOException $error) {
+            echo '<h2>No fue posible consultar la base de datos: ' . $error->getMessage() . '</h2>';
+            return null;
+        }
+    }
+
     public function insertar($cnx, $objeto_pelicula) 
     {
         try {
