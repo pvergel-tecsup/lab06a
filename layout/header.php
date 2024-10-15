@@ -23,7 +23,7 @@
                         </li>
                     </ul>
                 </div>
-                <form class="d-flex" role="search" method="post" action="">
+                <form class="d-flex" role="search" method="post" action="index.php">
                     <input class="form-control me-2" type="search" placeholder="Búsqueda..." aria-label="Search" name="search" required>
                     <button class="btn btn-outline-light" type="submit">Buscar</button>
                 </form>
