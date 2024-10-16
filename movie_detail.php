@@ -28,27 +28,27 @@ require_once('./layout/header.php');
 </div>
 <div class="row mb-3">
     <div class="col-sm-12">
-        <label for="title" class="form-label">Género</label>
+        <label for="genre" class="form-label">Género</label>
         <input type="text" name="genre" class="form-control" value="<?php echo $pelicula->getGenre()->getName() ?>" readonly>
     </div>
 </div>
 <div class="row mb-3">
     <div class="col-sm-6">
-        <label for="title" class="form-label">Año de Estreno</label>
+        <label for="release_year" class="form-label">Año de Estreno</label>
         <input type="text" name="release_year" class="form-control" value="<?php echo $pelicula->getReleaseYear() ?>" readonly>
     </div>
     <div class="col-sm-6">
-        <label for="title" class="form-label">Duración (minutos)</label>
+        <label for="length" class="form-label">Duración (minutos)</label>
         <input type="text" name="length" class="form-control" value="<?php echo $pelicula->getLength() ?>" readonly>
     </div>
 </div>
 <div class="row mb-3">
     <div class="col-sm-6">
-        <label for="title" class="form-label">Premios</label>
+        <label for="awards" class="form-label">Premios</label>
         <input type="text" name="awards" class="form-control" value="<?php echo $pelicula->getAwards() ?>" readonly>
     </div>
     <div class="col-sm-6">
-        <label for="title" class="form-label">Rating</label>
+        <label for="rating" class="form-label">Rating</label>
         <input type="text" name="rating" class="form-control" value="<?php echo $pelicula->getRating() ?>" readonly>
     </div>
 </div>

@@ -90,7 +90,7 @@ class MovieDB
         }
     }
 
-    public function insertar($cnx, $objeto_pelicula) 
+    public function insertar($cnx, $objeto_pelicula)
     {
         try {
             $query = "INSERT INTO movies (title, rating, awards, release_year, length, genre_id) 
@@ -102,6 +102,45 @@ class MovieDB
             $stmt->bindValue(':estreno', $objeto_pelicula->getReleaseYear(), PDO::PARAM_INT);
             $stmt->bindValue(':duracion', $objeto_pelicula->getLength());
             $stmt->bindValue(':genero', $objeto_pelicula->getGenre()->getGenreId(), PDO::PARAM_INT);
+            return $stmt->execute();
+        } catch (PDOException $error) {
+            echo '<h2>No fue posible consultar la base de datos: ' . $error->getMessage() . '</h2>';
+            return false;
+        }
+    }
+
+    public function actualizar($cnx, $objeto_pelicula)
+    {
+        try {
+            $query = "UPDATE movies SET 
+                        title = :titulo, 
+                        rating = :ranking, 
+                        awards = :premios, 
+                        release_year = :estreno, 
+                        length = :duracion, 
+                        genre_id = :genero 
+                     WHERE id = :id";
+            $stmt = $cnx->prepare($query);
+            $stmt->bindValue(':id', $objeto_pelicula->getId(), PDO::PARAM_INT);
+            $stmt->bindValue(':titulo', $objeto_pelicula->getTitle(), PDO::PARAM_STR);
+            $stmt->bindValue(':ranking', $objeto_pelicula->getRating());
+            $stmt->bindValue(':premios', $objeto_pelicula->getAwards());
+            $stmt->bindValue(':estreno', $objeto_pelicula->getReleaseYear(), PDO::PARAM_INT);
+            $stmt->bindValue(':duracion', $objeto_pelicula->getLength());
+            $stmt->bindValue(':genero', $objeto_pelicula->getGenre()->getGenreId(), PDO::PARAM_INT);
+            return $stmt->execute();
+        } catch (PDOException $error) {
+            echo '<h2>No fue posible consultar la base de datos: ' . $error->getMessage() . '</h2>';
+            return false;
+        }
+    }
+
+    public function eliminar($cnx, $id)
+    {
+        try {
+            $query = "DELETE FROM movies WHERE id = :id";
+            $stmt = $cnx->prepare($query);
+            $stmt->bindValue(':id', $id, PDO::PARAM_INT);
             return $stmt->execute();
         } catch (PDOException $error) {
             echo '<h2>No fue posible consultar la base de datos: ' . $error->getMessage() . '</h2>';
