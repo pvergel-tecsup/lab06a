@@ -61,7 +61,6 @@ class MovieDB
 
     public function detalle($cnx, $id)
     {
-
         try {
             $sql = "SELECT 
                            m.id, m.title, m.rating, 
@@ -97,10 +96,10 @@ class MovieDB
                   VALUES (:titulo, :ranking, :premios, :estreno, :duracion, :genero)";
             $stmt = $cnx->prepare($query);
             $stmt->bindValue(':titulo', $objeto_pelicula->getTitle(), PDO::PARAM_STR);
-            $stmt->bindValue(':ranking', $objeto_pelicula->getRating());
-            $stmt->bindValue(':premios', $objeto_pelicula->getAwards());
+            $stmt->bindValue(':ranking', $objeto_pelicula->getRating(), PDO::PARAM_INT);
+            $stmt->bindValue(':premios', $objeto_pelicula->getAwards(), PDO::PARAM_INT);
             $stmt->bindValue(':estreno', $objeto_pelicula->getReleaseYear(), PDO::PARAM_INT);
-            $stmt->bindValue(':duracion', $objeto_pelicula->getLength());
+            $stmt->bindValue(':duracion', $objeto_pelicula->getLength(), PDO::PARAM_INT);
             $stmt->bindValue(':genero', $objeto_pelicula->getGenre()->getGenreId(), PDO::PARAM_INT);
             return $stmt->execute();
         } catch (PDOException $error) {
