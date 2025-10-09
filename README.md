@@ -3,7 +3,7 @@
 CRUD completo para una base de datos sencilla de peliculas y categorias.
 
 ***Script de base de datos:***
-´´´
+```
 DROP DATABASE IF EXISTS movies_db;
 
 CREATE DATABASE movies_db;
